@@ -9,6 +9,7 @@ import datetime
 from datetime import datetime
 import random
 
+x = True
 while x == True:
 
     now = datetime.now()
