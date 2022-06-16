@@ -20,8 +20,8 @@ while x == True:
     line = ser.readline().decode('utf-8').rstrip()
     sensorData = line.strip(",")
 
-    temp = sensorData[0]
-    co = sensorData[1]
-    gas = sensorData[2]
+    # temp = sensorData[0]
+    # co = sensorData[1]
+    # gas = sensorData[2]
 
     print(sensorData)
