@@ -9,6 +9,8 @@ import datetime
 from datetime import datetime
 import random
 
+ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+ser.reset_input_buffer()
 x = True
 while x == True:
 
