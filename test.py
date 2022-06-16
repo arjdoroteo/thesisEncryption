@@ -20,9 +20,5 @@ while x == True:
     if ser.in_waiting > 0:
         line = ser.readline().decode('utf-8').rstrip()
         sensorData = line.split(",")
-
-   # temp = sensorData[0]
-   # co = sensorData[1]
-   # gas = sensorData[2]
-
-    print(sensorData)
+        print(sensorData)
+        time.sleep(1)

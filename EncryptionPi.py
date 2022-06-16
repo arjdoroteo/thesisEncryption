@@ -76,25 +76,27 @@ while x == True:
     now = datetime.now()
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
-    line = ser.readline().decode('utf-8').rstrip()
-    sensorData = line.split(",")
+    if ser.in_waiting > 0:
+        line = ser.readline().decode('utf-8').rstrip()
+        sensorData = line.split(",")
 
-    temp = sensorData[0]
-    co = sensorData[1]
-    gas = sensorData[2]
+        temp = sensorData[0]
+        co = sensorData[1]
+        gas = sensorData[2]
 
-    if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
-        mongodbUpload(temp, co, gas, date_time, cipherText)
-        if timer == 0:
+        print('Temp: ' + str(temp) + ' CO: ' + str(co) + ' LPG: ' + str(gas))
+
+        if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
+            mongodbUpload(temp, co, gas, date_time, cipherText)
+            if timer == 0:
+                print('Timer Done!')
+                timer = 5
+
+        elif timer == 0:
+            mongodbUpload(temp, co, gas, date_time, cipherText)
             print('Timer Done!')
             timer = 5
-
-    elif timer == 0:
-        mongodbUpload(temp, co, gas, date_time, cipherText)
-        print('Timer Done!')
-        timer = 5
 
     timer -= 1
     time.sleep(1)
     print(timer)
-    print('Temp: ' + str(temp) + ' CO: ' + str(co) + ' LPG: ' + str(gas))
