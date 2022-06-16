@@ -80,9 +80,9 @@ while x == True:
         line = ser.readline().decode('utf-8').rstrip()
         sensorData = line.split(",")
 
-        temp = sensorData[0]
-        co = sensorData[1]
-        gas = sensorData[2]
+        temp = int(sensorData[0])
+        co = int(sensorData[1])
+        gas = int(sensorData[2])
 
         print('Temp: ' + str(temp) + ' CO: ' + str(co) + ' LPG: ' + str(gas))
 
