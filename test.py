@@ -24,4 +24,4 @@ while x == True:
     co = sensorData[1]
     gas = sensorData[2]
 
-    print(co)
+print(type(sensorData))
