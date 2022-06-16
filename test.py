@@ -25,3 +25,4 @@ while x == True:
     # gas = sensorData[2]
 
     print(sensorData)
+    print(type(sensorData))
