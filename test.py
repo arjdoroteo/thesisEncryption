@@ -23,3 +23,5 @@ while x == True:
     temp = sensorData[0]
     co = sensorData[1]
     gas = sensorData[2]
+
+    print(co)
