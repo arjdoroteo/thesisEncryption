@@ -76,13 +76,12 @@ while x == True:
     now = datetime.now()
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
-    if ser.in_waiting > 0:
-        line = ser.readline().decode('utf-8').rstrip()
-        sensorData = line.strip(",")
+    line = ser.readline().decode('utf-8').rstrip()
+    sensorData = line.strip(",")
 
-        temp = sensorData[0]
-        co = sensorData[1]
-        gas = sensorData[2]
+    temp = sensorData[0]
+    co = sensorData[1]
+    gas = sensorData[2]
 
     if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
         mongodbUpload(temp, co, gas, date_time, cipherText)
