@@ -80,9 +80,9 @@ while x == True:
         line = ser.readline().decode('utf-8').rstrip()
         sensorData = line.strip(",")
 
-    temp = line[0]
-    co = line[1]
-    gas = line[2]
+    temp = sensorData[0]
+    co = sensorData[1]
+    gas = sensorData[2]
 
     if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
         mongodbUpload(temp, co, gas, date_time, cipherText)
