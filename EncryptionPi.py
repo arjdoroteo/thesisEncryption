@@ -77,7 +77,7 @@ while x == True:
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
     line = ser.readline().decode('utf-8').rstrip()
-    sensorData = line.strip(",")
+    sensorData = line.split(",")
 
     temp = sensorData[0]
     co = sensorData[1]
