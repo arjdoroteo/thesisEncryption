@@ -74,7 +74,7 @@ co_limit = 100
 gas_limit = 10000
 
 # timer set to 5 seconds, will be replaced to 1 hour in final system
-timer = 5
+timer = 3600
 
 cipherText = aes_userdata()
 ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
@@ -97,13 +97,13 @@ while x == True:
         saveLocal(date_time, temp, co, gas)
 
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
-            mongodbUpload(temp, co, gas, date_time, cipherText)
+            # mongodbUpload(temp, co, gas, date_time, cipherText)
             if timer == 0:
                 print('Timer Done!')
                 timer = 5
 
         elif timer == 0:
-            mongodbUpload(temp, co, gas, date_time, cipherText)
+            # mongodbUpload(temp, co, gas, date_time, cipherText)
             print('Timer Done!')
             timer = 5
 
