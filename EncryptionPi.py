@@ -58,6 +58,14 @@ def mongodbUpload(temp, co, gas, date_time, cipherText):
     print('Uploaded')
 
 
+def saveLocal(date_time, temp, co, gas){
+    now = datetime.now()
+    local_Date = now.strftime("%m/%d/%Y")
+    f = open(local_Date, "a")
+    f.write("{}, {}, {}, {}".format(date_time, temp, co, gas))
+}
+
+
 x = True
 
 temp_limit = 125
@@ -85,6 +93,7 @@ while x == True:
         gas = int(sensorData[2])
 
         print('Temp: ' + str(temp) + ' CO: ' + str(co) + ' LPG: ' + str(gas))
+        saveLocal(date_time, temp, co, gas)
 
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
             mongodbUpload(temp, co, gas, date_time, cipherText)
