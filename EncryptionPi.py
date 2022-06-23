@@ -61,11 +61,10 @@ def mongodbUpload(temp, co, gas, date_time, cipherText):
 
 def saveLocal(date_time, temp, co, gas):
     now = datetime.now()
-    local_Date = str(pathsss) + "/" + now.strftime("%m-%d-%Y") + ".csv"
     pathsss = pathlib.Path().resolve()
-
+    local_Date = str(pathsss) + "/" + now.strftime("%m-%d-%Y") + ".csv"
     f = open(local_Date, "a")
-    f.write("{}, {}, {}, {}".format(date_time, temp, co, gas))
+    f.write("{}, {}, {}, {}\n".format(date_time, temp, co, gas))
 
 
 x = True

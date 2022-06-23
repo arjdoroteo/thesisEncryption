@@ -13,8 +13,8 @@ from pymongo import MongoClient
 import datetime
 from datetime import datetime
 import random
-
-#Establishing the connection between the database and the program
+import pathlib
+# Establishing the connection between the database and the program
 cluster = MongoClient(
     'mongodb+srv://test1:123@cluster0.hfj9h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 db = cluster['Flame']
@@ -63,6 +63,15 @@ def mongodbUpload(temp, co, gas, date_time, cipherText):
     print('Uploaded')
 
 
+def saveLocal(date_time, temp, co, gas):
+    now = datetime.now()
+    pathsss = pathlib.Path().resolve()
+    local_Date = str(pathsss) + "/" + now.strftime("%m-%d-%Y") + ".csv"
+
+    f = open(local_Date, "a")
+    f.write("{}, {}, {}, {}\n".format(date_time, temp, co, gas))
+
+
 x = True
 
 temp_limit = 125
@@ -75,22 +84,23 @@ timer = 5
 cipherText = aes_userdata()
 
 while x == True:
-    #random data will be replaced by data from sensors
+    # random data will be replaced by data from sensors
     temp = random.randint(15, 125)
     co = random.randint(0, 100)
     gas = random.randint(0, 10000)
 
     now = datetime.now()
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+    saveLocal(date_time, temp, co, gas)
 
     if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
-        mongodbUpload(temp, co, gas, date_time, cipherText)
+        # mongodbUpload(temp, co, gas, date_time, cipherText)
         if timer == 0:
             print('Timer Done!')
             timer = 5
 
     elif timer == 0:
-        mongodbUpload(temp, co, gas, date_time, cipherText)
+        # mongodbUpload(temp, co, gas, date_time, cipherText)
         print('Timer Done!')
         timer = 5
 
