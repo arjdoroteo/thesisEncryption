@@ -7,7 +7,8 @@ import pymongo
 from pymongo import MongoClient
 import datetime
 from datetime import datetime
-import random
+
+import pathlib
 
 # Establishing the connection between the database and the program
 cluster = MongoClient(
@@ -58,12 +59,13 @@ def mongodbUpload(temp, co, gas, date_time, cipherText):
     print('Uploaded')
 
 
-def saveLocal(date_time, temp, co, gas){
+def saveLocal(date_time, temp, co, gas):
     now = datetime.now()
-    local_Date = now.strftime("%m/%d/%Y")
+    local_Date = str(pathsss) + "/" + now.strftime("%m-%d-%Y") + ".csv"
+    pathsss = pathlib.Path().resolve()
+
     f = open(local_Date, "a")
     f.write("{}, {}, {}, {}".format(date_time, temp, co, gas))
-}
 
 
 x = True
