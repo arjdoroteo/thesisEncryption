@@ -57,7 +57,7 @@ def aes_userdata():
 
 # Function to upload data to mongodb
 def mongodbUpload(temp, co, gas, date_time, cipherText, hash):
-    post = {'User Info': cipherText, 'Hash': str(hash), 'Date and Time': date_time,
+    post = {'User Info': cipherText, 'Hash': hash, 'Date and Time': date_time,
             'Temperature': temp, 'CO': co, 'LPG': gas}
     collection.insert_one(post)
     print('Uploaded')
@@ -74,7 +74,7 @@ def saveLocal(date_time, temp, co, gas):
 def createHash(plainText):
     h = SHA512.new(truncate="256")
     h.update(plainText)
-    return h.hexdigest()
+    return h.digest()
 
 
 x = True
