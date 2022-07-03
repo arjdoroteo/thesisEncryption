@@ -52,9 +52,9 @@ def aes_userdata():
     with open('cipher_file', 'wb') as c_file:
         c_file.write(key)
         c_file.write(iv)
-        c_file.write(hash)
         c_file.write(cipherText)
-
+    with open('hash_file', 'w') as c_file:
+        c_file.write(hash)
     # returns the encrypted text
     return (enclist)
 
@@ -79,7 +79,7 @@ def saveLocal(date_time, temp, co, gas):
 def createHash(plainText):
     h = SHA512.new(truncate="256")
     h.update(plainText)
-    return h.digest()
+    return h.hexdigest()
 
 
 x = True
@@ -103,7 +103,7 @@ while x == True:
 
     now = datetime.now()
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-    saveLocal(date_time, temp, co, gas)
+    # saveLocal(date_time, temp, co, gas)
 
     if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
         mongodbUpload(temp, co, gas, date_time, cipherText, hash)
