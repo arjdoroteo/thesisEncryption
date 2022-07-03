@@ -2,6 +2,7 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 from Crypto.Random import get_random_bytes
 import time
+from Crypto.Hash import SHA512
 
 
 def encrypt_data(plainName, plainLocation):
@@ -13,7 +14,10 @@ def encrypt_data(plainName, plainLocation):
     plainData = plainName + b',' + plainLocation
 
     plainDataSize = plainData.decode('ascii')
-    print(plainDataSize)
+    print("User Data: ", plainDataSize)
+
+    print("SHA512 Hash: ", createHash(plainData))
+
     print('Data size: ', len(plainDataSize.encode('utf-16-le')), 'bytes')
 
     st = time.process_time()
@@ -31,6 +35,12 @@ def encrypt_data(plainName, plainLocation):
         c_file.write(cipherText)
 
 
+def createHash(plainText):
+    h = SHA512.new(truncate="256")
+    h.update(plainText)
+    return h.hexdigest()
+
+
 userNameSet = ['Adrian Robert Doroteo', 'Ericson Dimaunahan',
                'Darwin James Goling', 'Emman Paloma', 'Rave Puerto', 'Michael Ogue', 'Neil Isip']
 userLocSet = ['14.466762,120.974886',
@@ -45,3 +55,4 @@ userLocSet = ['14.466762,120.974886',
 for i in range(len(userNameSet)):
 
     encrypt_data(userNameSet[i], userLocSet[i])
+    print("\n")
