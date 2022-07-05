@@ -86,7 +86,7 @@ x = True
 
 temp_limit = 125
 co_limit = 100
-gas_limit = 10000
+gas_limit = 5000
 
 # timer set to 5 seconds, will be replaced to 1 hour in final system
 timer = 5
@@ -106,13 +106,14 @@ while x == True:
     # saveLocal(date_time, temp, co, gas)
 
     if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
-        mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+        # mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+        print("Uploaded")
         if timer == 0:
             print('Timer Done!')
             timer = 5
 
     elif timer == 0:
-        mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+        # mongodbUpload(temp, co, gas, date_time, cipherText, hash)
         print('Timer Done!')
         timer = 5
 

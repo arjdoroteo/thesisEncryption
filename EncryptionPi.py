@@ -82,7 +82,7 @@ x = True
 
 temp_limit = 125
 co_limit = 100
-gas_limit = 10000
+gas_limit = 60
 
 # timer set to 5 seconds, will be replaced to 1 hour in final system
 timer = 5
@@ -102,21 +102,22 @@ while x == True:
         line = ser.readline().decode('utf-8').rstrip()
         sensorData = line.split(",")
 
-        temp = int(sensorData[0])
-        co = int(sensorData[1])
-        gas = int(sensorData[2])
+        temp = float(sensorData[0])
+        co = float(sensorData[1])
+        gas = float(sensorData[2])
 
         print('Temp: ' + str(temp) + ' CO: ' + str(co) + ' LPG: ' + str(gas))
-        saveLocal(date_time, temp, co, gas)
+        # saveLocal(date_time, temp, co, gas)
 
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
-            mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+            # mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+            print('uploaded')
             if timer == 0:
                 print('Timer Done!')
                 timer = 5
 
         elif timer == 0:
-            mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+            # mongodbUpload(temp, co, gas, date_time, cipherText, hash)
             print('Timer Done!')
             timer = 5
 
