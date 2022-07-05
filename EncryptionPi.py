@@ -110,7 +110,7 @@ while x == True:
         # saveLocal(date_time, temp, co, gas)
 
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
-            mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+           # mongodbUpload(temp, co, gas, date_time, cipherText, hash)
             print('uploaded')
             if timer == 0:
                 print('Timer Done!')
