@@ -121,6 +121,6 @@ while x == True:
             print('Timer Done!')
             timer = 5
 
-    timer -= 1
-    time.sleep(1)
-    print(timer)
+        timer -= 1
+        time.sleep(1)
+        print(timer)
