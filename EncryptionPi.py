@@ -85,7 +85,7 @@ co_limit = 100
 gas_limit = 150
 
 # timer set to 5 seconds, will be replaced to 1 hour in final system
-timer = 3600
+timer = 5
 
 encList = aes_userdata()
 cipherText = encList[0]
