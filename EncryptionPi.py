@@ -64,12 +64,12 @@ def mongodbUpload(temp, co, gas, date_time, cipherText, hash, systrig):
     print('Uploaded')
 
 
-def saveLocal(date_time, temp, co, gas):
+def saveLocal(date_time, temp, co, gas, systrig):
     now = datetime.now()
     pathsss = pathlib.Path().resolve()
     local_Date = str(pathsss) + "/" + now.strftime("%m-%d-%Y") + ".csv"
     f = open(local_Date, "a")
-    f.write("{}, {}, {}, {}\n".format(date_time, temp, co, gas))
+    f.write("{}, {}, {}, {}, {}\n".format(date_time, temp, co, gas, systrig))
 
 
 def createHash(plainText):
@@ -107,10 +107,10 @@ while x == True:
         gas = float(sensorData[2])
 
         print('Temp: ' + str(temp) + ' CO: ' + str(co) + ' LPG: ' + str(gas))
-        saveLocal(date_time, temp, co, gas)
 
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
             mongodbUpload(temp, co, gas, date_time, cipherText, hash, True)
+            saveLocal(date_time, temp, co, gas, True)
             print('uploaded')
             if timer == 0:
                 print('Timer Done!')
@@ -120,6 +120,9 @@ while x == True:
             mongodbUpload(temp, co, gas, date_time, cipherText, hash, False)
             print('Timer Done!')
             timer = 5
+
+        else:
+            saveLocal(date_time, temp, co, gas, False)
 
         timer -= 1
         time.sleep(1)
