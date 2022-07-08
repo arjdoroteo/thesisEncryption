@@ -57,9 +57,9 @@ def aes_userdata():
 
 
 # Function to upload data to mongodb
-def mongodbUpload(temp, co, gas, date_time, cipherText, hash):
+def mongodbUpload(temp, co, gas, date_time, cipherText, hash, systrig):
     post = {'User Info': cipherText, 'Hash': hash, 'Date and Time': date_time,
-            'Temperature': temp, 'CO': co, 'LPG': gas}
+            'Temperature': temp, 'CO': co, 'LPG': gas, 'System Trigger': systrig}
     collection.insert_one(post)
     print('Uploaded')
 
@@ -82,10 +82,10 @@ x = True
 
 temp_limit = 125
 co_limit = 100
-gas_limit = 1000
+gas_limit = 800
 
 # timer set to 5 seconds, will be replaced to 1 hour in final system
-timer = 5
+timer = 3600
 
 encList = aes_userdata()
 cipherText = encList[0]
@@ -110,14 +110,14 @@ while x == True:
         saveLocal(date_time, temp, co, gas)
 
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
-            # mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+            mongodbUpload(temp, co, gas, date_time, cipherText, hash, True)
             print('uploaded')
             if timer == 0:
                 print('Timer Done!')
                 timer = 5
 
         elif timer == 0:
-            # mongodbUpload(temp, co, gas, date_time, cipherText, hash)
+            mongodbUpload(temp, co, gas, date_time, cipherText, hash, False)
             print('Timer Done!')
             timer = 5
 
