@@ -82,7 +82,7 @@ x = True
 
 temp_limit = 125
 co_limit = 100
-gas_limit = 800
+gas_limit = 150
 
 # timer set to 5 seconds, will be replaced to 1 hour in final system
 timer = 3600
