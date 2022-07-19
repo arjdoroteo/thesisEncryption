@@ -3,6 +3,61 @@ from Crypto.Util.Padding import pad
 from Crypto.Random import get_random_bytes
 import time
 from Crypto.Hash import SHA512
+from Crypto.Cipher import DES3
+from Crypto.Cipher import CAST
+
+
+def encrypt_dataCast(plainName, plainLocation):
+    key = b'1234567890qwerty'
+
+    plainName = plainName.encode('UTF-8')
+    plainLocation = plainLocation.encode('UTF-8')
+    plainData = plainName + b',' + plainLocation
+
+    plainDataSize = plainData.decode('ascii')
+
+    print("User Data: ", plainDataSize)
+
+    print("SHA512 Hash: ", createHash(plainData))
+
+    print('Data size: ', len(plainDataSize.encode('utf-16-le')), 'bytes')
+
+    st = time.process_time()
+
+    cipher = CAST.new(key, CAST.MODE_CBC)
+    msg = cipher.encrypt(pad(plainData, CAST.block_size))
+
+    et = time.process_time()
+    res = et - st
+    print('CPU Execution time: ', res * 1000, 'milliseconds')
+
+
+def encrypt_dataDes(plainName, plainLocation):
+    while True:
+        try:
+            key = DES3.adjust_key_parity(b'1234567890qwertyuiopasdf')
+            break
+        except ValueError:
+            pass
+
+    plainName = plainName.encode('UTF-8')
+    plainLocation = plainLocation.encode('UTF-8')
+    plainData = plainName + b',' + plainLocation
+
+    plainDataSize = plainData.decode('ascii')
+
+    print("User Data: ", plainDataSize)
+
+    print("SHA512 Hash: ", createHash(plainData))
+
+    print('Data size: ', len(plainDataSize.encode('utf-16-le')), 'bytes')
+
+    st = time.process_time()
+    cipher = DES3.new(key, DES3.MODE_CBC)
+    msg = cipher.iv + cipher.encrypt(pad(plainData, DES3.block_size))
+    et = time.process_time()
+    res = et - st
+    print('CPU Execution time: ', res * 1000, 'milliseconds')
 
 
 def encrypt_data(plainName, plainLocation):
@@ -53,6 +108,19 @@ userLocSet = ['14.466762,120.974886',
 
 
 for i in range(len(userNameSet)):
-
+    print("Encrypting Using AES256")
     encrypt_data(userNameSet[i], userLocSet[i])
+    print("\n")
+
+
+for i in range(len(userNameSet)):
+
+    print("Encrypting Using Triple DES")
+    encrypt_dataDes(userNameSet[i], userLocSet[i])
+    print("\n")
+
+for i in range(len(userNameSet)):
+
+    print("Encrypting Using CAST-128")
+    encrypt_dataCast(userNameSet[i], userLocSet[i])
     print("\n")
