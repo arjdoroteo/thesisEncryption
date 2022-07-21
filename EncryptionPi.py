@@ -81,7 +81,7 @@ def createHash(plainText):
 x = True
 
 temp_limit = 125
-co_limit = 100
+co_limit = 25
 gas_limit = 150
 
 # timer set to 5 seconds, will be replaced to 1 hour in final system
@@ -109,20 +109,20 @@ while x == True:
         print('Temp: ' + str(temp) + ' CO: ' + str(co) + ' LPG: ' + str(gas))
 
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
-            # mongodbUpload(temp, co, gas, date_time, cipherText, hash, True)
-            saveLocal(date_time, temp, co, gas, True)
+            mongodbUpload(temp, co, gas, date_time, cipherText, hash, True)
+            # saveLocal(date_time, temp, co, gas, True)
             print('uploaded')
             if timer == 0:
                 print('Timer Done!')
                 timer = 5
 
         elif timer == 0:
-            # mongodbUpload(temp, co, gas, date_time, cipherText, hash, False)
+            mongodbUpload(temp, co, gas, date_time, cipherText, hash, False)
             print('Timer Done!')
             timer = 5
 
-        else:
-            saveLocal(date_time, temp, co, gas, False)
+        # else:
+        #     saveLocal(date_time, temp, co, gas, False)
 
         timer -= 1
         time.sleep(1)
