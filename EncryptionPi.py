@@ -85,7 +85,7 @@ co_limit = 25
 gas_limit = 150
 
 # timer set to 5 seconds, will be replaced to 1 hour in final system
-timer = 3600
+timer = 20
 
 encList = aes_userdata()
 cipherText = encList[0]
@@ -110,14 +110,13 @@ while x == True:
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
             mongodbUpload(temp, co, gas, date_time, cipherText, hash, True)
             saveLocal(date_time, temp, co, gas, True)
-            print('uploaded')
             if timer == 0:
-                timer = 5
+                timer = 20
 
         elif timer == 0:
             mongodbUpload(temp, co, gas, date_time, cipherText, hash, False)
             print('Timer Done!')
-            timer = 5
+            timer = 20
 
         else:
             saveLocal(date_time, temp, co, gas, False)
