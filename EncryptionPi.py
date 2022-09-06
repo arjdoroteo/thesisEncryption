@@ -80,7 +80,7 @@ def createHash(plainText):
 
 x = True
 
-temp_limit = 125
+temp_limit = 80
 co_limit = 25
 gas_limit = 150
 
@@ -105,15 +105,13 @@ while x == True:
         temp = float(sensorData[0])
         co = float(sensorData[1])
         gas = float(sensorData[2])
-
         print('Temp: ' + str(temp) + ' CO: ' + str(co) + ' LPG: ' + str(gas))
 
         if temp >= temp_limit or co >= co_limit or gas >= gas_limit:
             mongodbUpload(temp, co, gas, date_time, cipherText, hash, True)
-            # saveLocal(date_time, temp, co, gas, True)
+            saveLocal(date_time, temp, co, gas, True)
             print('uploaded')
             if timer == 0:
-                print('Timer Done!')
                 timer = 5
 
         elif timer == 0:
@@ -121,8 +119,8 @@ while x == True:
             print('Timer Done!')
             timer = 5
 
-        # else:
-        #     saveLocal(date_time, temp, co, gas, False)
+        else:
+            saveLocal(date_time, temp, co, gas, False)
 
         timer -= 1
         time.sleep(1)
